@@ -1,0 +1,85 @@
+
+.fish {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    
+}
+ .fish img {
+    height: 80px;
+    width: 80px;
+ }
+
+
+
+.blob {
+    position: absolute;
+    top: 3%;
+    right: 15%;
+}
+
+.blob img {
+    height: 80px;
+    width: 80px;}
+
+
+
+.map {
+    position: absolute;
+    top: 20%;
+    right: 6%;
+}
+
+.map img {
+    height: 70px;
+    width: 70px;
+}
+
+
+.sea {
+    position: absolute;
+    top: 20%;
+    right: 15%;
+}
+
+.sea img {
+    height: 80px;
+    width: 80px;
+}
+
+
+.dino {
+    position: absolute;
+    top: 35%;
+    right: 5%;
+}
+
+.dino img {
+    height: 80px;
+    width: 80px;
+}
+
+
+.dice {
+    position: absolute;
+    top: 35%;
+    right: 15%;
+}
+
+.dice img {
+    height: 80px;
+    width: 80px;
+}
+
+
+#mydiv {
+    position: absolute;
+    bottom: 10%;
+    right: 5%;
+}
+
+.cat {
+    position: absolute;
+    bottom: 20%;
+    right: 30%;  
+}

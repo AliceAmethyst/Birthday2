@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Computer</title>
+<link rel="stylesheet" href="https://unpkg.com/98.css">
+<link rel="stylesheet" href="paint.css">
+<link rel="stylesheet" href="computer.css">
+</head>
+
+<body>
+<script>NekoType="socks"</script>
+<h1 id=nl><script src="https://webneko.net/n20171213.js"></script><a 
+href="https://webneko.net">Neko</a></h1>
+
+<div class="window" style="width: 400px; height: 500px; position: absolute; left: 80px; top: 60px;">
+    <div class="title-bar">
+        <div class="title-bar-text">Paint</div>
+        <div class="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
+        </div>
+    </div>
+
+    <div class="window-body">
+
+        <div class="toolbar">
+            <div>
+                <button>File</button>
+                <button>View</button>
+                <button>Image</button>
+                <button>Help</button>
+            </div>
+
+            <button id="clearBtn">Clear</button>
+        </div>
+
+        <div class="paint-layout">
+
+            <div class="toolbox">
+                <button data-tool="pencil">✏</button> </br>
+                <button data-tool="brush">🖌</button></br>
+                <button data-tool="line">／</button></br>
+                <button data-tool="rectangle">□</button></br>
+                <button data-tool="circle">○</button></br>
+                <button data-tool="eraser">⌫</button>
+            </div>
+
+            <div>
+                <div class="canvas-wrapper">
+<canvas id="canvas" width="300" height="360"></canvas>
+                </div>
+
+                <div class="palette" id="palette"></div>
+            </div>
+
+        </div>
+
+        <div class="status-bar">
+            <p class="status-bar-field">Ready</p>
+            <p class="status-bar-field" id="coords">0,0</p>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div  class="fish"> <a href="https://vibes.fish/" target="_blank"> <img class="fish" src="img/fish.png"> </a> </div>
+<div  class="blob"> <a href="https://artsandculture.google.com/experiment/blob-opera/AAHWrq360NcGbw?cp=e30." target="_blank"> <img class="blob" src="img/blob.png"> </a> </div>
+<div  class="map"> <a href="https://www.jetpunk.com/user-quizzes/61345/etats-des-etats-unis" target="_blank"> <img class="map" src="img/map.png"> </a> </div>
+<div  class="sea"> <a href="https://neal.fun/deep-sea/" target="_blank"> <img class="sea" src="img/sea.png"> </a> </div>
+<div  class="dino"> <a href="https://dinorunner.com/fr/" target="_blank"> <img class="dino" src="img/dino.png"> </a> </div>
+<div  class="dice"> <a href="https://campagnednd.netlify.app/" target="_blank"> <img class="dice" src="img/dice.png"> </a> </div>
+
+
+
+<div id="mydiv">
+    <img class="message" height="150px" width="300px"  src="img/message.png">
+</div> 
+
+<div class="cat">
+<iframe width="314" height="321" scrolling="no" src="https://gify.pet/pet/pet.html?name=Sir Pipo&dob=1781798693&gender=m&element=Fire&pet=cat.gif&map=https%3A%2F%2Fi.pinimg.com%2F736x%2Fc5%2Fa6%2F6e%2Fc5a66e4c3607b6aef969d2f0e34240d4.jpg&background=paper.jpg&tablecolor=%231fd8db&textcolor=black" frameborder="0"></iframe>
+</div>
+
+<script>
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let drawing = false;
+let currentTool = "pencil";
+
+let startX = 0;
+let startY = 0;
+let snapshot = null;
+
+ctx.lineCap = "round";
+ctx.strokeStyle = "#000";
+ctx.lineWidth = 2;
+
+
+document.querySelectorAll("[data-tool]").forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        document.querySelectorAll("[data-tool]")
+            .forEach(b => b.classList.remove("active"));
+
+        btn.classList.add("active");
+        currentTool = btn.dataset.tool;
+    });
+});
+
+document.querySelector('[data-tool="pencil"]').classList.add("active");
+
+
+const colors = [
+"#000000","#808080","#c0c0c0","#ffffff",
+"#800000","#ff0000","#f28e30","#ffff00",
+"#008000","#00ff00","#008080","#00ffff",
+"#000080","#0000ff","#800080","#ff00ff"
+];
+
+const palette = document.getElementById("palette");
+
+colors.forEach(color => {
+    const div = document.createElement("div");
+    div.className = "color";
+    div.style.background = color;
+
+    div.addEventListener("click", () => {
+
+        document.querySelectorAll(".color")
+            .forEach(c => c.classList.remove("selected"));
+
+        div.classList.add("selected");
+
+        ctx.strokeStyle = color;
+    });
+
+    palette.appendChild(div);
+});
+
+document.querySelector(".color").classList.add("selected");
+
+
+function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+
+    if (e.touches) {
+        return {
+            x: e.touches[0].clientX - rect.left,
+            y: e.touches[0].clientY - rect.top
+        };
+    }
+
+    return {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+    };
+}
+
+function saveCanvas() {
+    snapshot = ctx.getImageData(0,0,canvas.width,canvas.height);
+}
+
+function restoreCanvas() {
+    if (snapshot) ctx.putImageData(snapshot,0,0);
+}
+
+
+function startDrawing(e) {
+    drawing = true;
+
+    const pos = getPos(e);
+
+    startX = pos.x;
+    startY = pos.y;
+
+    saveCanvas();
+
+    if (["pencil","brush","eraser"].includes(currentTool)) {
+        ctx.beginPath();
+        ctx.moveTo(pos.x,pos.y);
+    }
+}
+
+function draw(e) {
+    if (!drawing) return;
+
+    e.preventDefault();
+
+    const pos = getPos(e);
+
+    document.getElementById("coords").textContent =
+        `${Math.round(pos.x)},${Math.round(pos.y)}`;
+
+    switch(currentTool) {
+
+        case "pencil":
+            ctx.lineWidth = 1;
+            ctx.lineTo(pos.x,pos.y);
+            ctx.stroke();
+            break;
+
+        case "brush":
+            ctx.lineWidth = 5;
+            ctx.lineTo(pos.x,pos.y);
+            ctx.stroke();
+            break;
+
+        case "eraser":
+            ctx.lineWidth = 12;
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineTo(pos.x,pos.y);
+            ctx.stroke();
+            break;
+
+        case "line":
+            restoreCanvas();
+            ctx.beginPath();
+            ctx.moveTo(startX,startY);
+            ctx.lineTo(pos.x,pos.y);
+            ctx.stroke();
+            break;
+
+        case "rectangle":
+            restoreCanvas();
+            ctx.strokeRect(startX,startY,pos.x-startX,pos.y-startY);
+            break;
+
+        case "circle":
+            restoreCanvas();
+
+            const r = Math.sqrt(
+                (pos.x-startX)**2 + (pos.y-startY)**2
+            );
+
+            ctx.beginPath();
+            ctx.arc(startX,startY,r,0,Math.PI*2);
+            ctx.stroke();
+            break;
+    }
+}
+
+function stopDrawing() {
+    drawing = false;
+
+    ctx.strokeStyle =
+        document.querySelector(".color.selected")
+        ?.style.background || "#000";
+}
+
+
+canvas.addEventListener("mousedown", startDrawing);
+canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mouseup", stopDrawing);
+canvas.addEventListener("mouseleave", stopDrawing);
+
+canvas.addEventListener("touchstart", startDrawing);
+canvas.addEventListener("touchmove", draw);
+canvas.addEventListener("touchend", stopDrawing);
+
+document.getElementById("clearBtn").addEventListener("click", () => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+});
+</script>
+
+<script>
+
+const win = document.querySelector(".window");
+const titleBar = document.querySelector(".title-bar");
+
+let dragging = false;
+let offsetX = 0;
+let offsetY = 0;
+
+titleBar.style.cursor = "move";
+
+titleBar.addEventListener("mousedown", (e) => {
+    if (e.target.tagName === "BUTTON") return;
+
+    dragging = true;
+
+    const rect = win.getBoundingClientRect();
+
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
+});
+
+document.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+
+    win.style.left = (e.clientX - offsetX) + "px";
+    win.style.top = (e.clientY - offsetY) + "px";
+});
+
+document.addEventListener("mouseup", () => {
+    dragging = false;
+});
+</script>
+
+<script>
+    dragElement(document.getElementById("mydiv"));
+
+function dragElement(elmnt) {
+  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    e.preventDefault();
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+  }
+
+  function closeDragElement() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+
+
+</script>
+</script>
+
+</body>
+</html>
