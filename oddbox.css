@@ -1,0 +1,358 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+    background-image: url('img/bg.jpg');
+    background-repeat: repeat;
+	background-attachment: fixed;
+	background-position: -165px 0;
+	text-rendering: optimizeLegibility;
+    overflow: hidden;
+}
+
+::selection {
+    background-color: #ffffff !important;
+    color: #3c002e !important;
+}
+
+* {
+	box-sizing: border-box;
+    scrollbar-width: thin;
+    -ms-overflow-style: none;
+    scrollbar-color: #d8d8d8a9 transparent;
+	cursor: url("/scrapbook/oddbox/img/arrow.gif"), auto;
+}
+
+* img {
+    user-select:none;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #d8d8d8a9;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+a {
+	cursor: url('/scrapbook/oddbox/img/finger.cur'), auto;
+}
+
+a * {
+	cursor: url('/scrapbook/oddbox/img/finger.cur'), auto;
+}
+
+.scroll-hug {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deity {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap:4em;
+}
+
+.knight {
+    position: relative;
+    width: 1000px;
+    height: 650px;
+    background-image: url('img/boxbg.jpg');
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 30px #000);
+}
+
+.box {
+    position: relative;
+}
+
+.lid {
+    position: absolute;
+    top:-6px;
+    z-index: 1;
+    &:hover {
+        transform: rotate(-5deg);
+        top:-30px;
+        left:-50px;
+        cursor: url("/scrapbook/oddbox/img/UP.cur"), auto;
+    }
+}
+
+#showLidBtn {
+    position: absolute;
+    top:20px;
+    left:15px;
+    display: none;
+    filter: drop-shadow(0 0 15px #000);
+    img {
+        cursor: url("/scrapbook/oddbox/img/click.gif"), auto;
+    }
+    &:hover {
+        transform: rotate(-2deg);
+    }
+}
+
+.help {
+    position: absolute;
+    top:5px;
+    right:10%;
+    text-align: right;
+    img {
+        filter: drop-shadow(0 0 15px #000);
+        cursor: url("/scrapbook/oddbox/img/HELP.CUR"), auto;
+    }
+    &:hover {
+        transform: rotate(2deg);
+    }
+    &.active {
+        .text {
+            display: block;
+        }
+        &:hover {
+            transform: unset;
+        }
+    }
+    .text {
+        color: #fff;
+        max-width: 180px;
+        display: none;
+        font-family: 'ms';
+        font-size: 20px;
+        font-weight: 100;        }
+    }
+    a {
+        color:aqua;
+    }
+
+
+
+@font-face {
+	font-family: 'ms';
+	src: url('/fonts/ms_sans_serif.woff2');
+}
+
+.queen {
+    position: relative;
+}
+
+span {
+    &.right {
+        color: rgb(75, 222, 255);
+    }
+    &.left {
+        color: rgb(75, 222, 255);
+    }
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-20px); }
+  100% { transform: translateY(0); }
+}
+
+.bubble {
+    background-image: url('/scrapbook/oddbox/img/bubble.png');
+    width: 300px;
+    height: 281px;
+    color: #fff;
+    position: relative;
+    z-index: 3;
+    filter: drop-shadow(0 0 30px #ffffff9c);
+    font-family: 'Times New Roman', Times, serif;
+    > .inner {
+        position: relative;
+        top: 75px;
+        left: 30px;
+        overflow: auto;
+        width: 228px;
+        text-align: center;
+        height: 120px;
+        transform: rotate(10deg);
+        text-shadow: 1px 1px 0 #000;
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-family: 'wobble';
+            font-weight: 100;
+        }
+    }
+    &.two {
+        background-image: url('/scrapbook/oddbox/img/note.png');
+        width: 200px;
+        height: 288px;
+        position: absolute;
+        top:220px;
+        left:-50px;
+        transform: rotate(-10deg);
+        color:#000;
+        z-index:2;
+            > .inner {
+                transform: none;
+                top: 0px;
+                left: 0px;
+                width: 90%;
+                height: 230px;
+                margin: 15% 2% auto auto;
+                text-shadow: 1px 1px 0 #fff;
+        scrollbar-color: #a0b4d4 transparent;
+        &::-webkit-scrollbar-track {
+            background: #a0b4d4;
+                    }
+        &::-webkit-scrollbar-thumb {
+            background-color: transparent;
+                    }
+            }
+    }
+}
+
+.CarteAnonyme, .MarquePage, .CarteCéline2, .CarteChien, .CarteCéline,
+.Dessins, .CarteClochette, .CarteIsolde, .CarteLouise,
+.CarteLulu, .CarteNoël, .CarteParrain, .CarteMissElise,
+.CartePlanterMargot, .CartePlanterParrain, .CartePlume, .CarteFleur,
+.CartePostaleMargot2, .CartePostaleParrain, .CarteUSA,
+.CartePostaleMargot,
+
+
+.PapierAnonyme, .Photo1, .Photo2, .PeachRiot, .PostitBleu,
+.PostitJaune, .Postitorange, .Poussin1, .socialnetwork1, .nightcrawler1,
+.justicecrew1, .melbourne1, .transformers1, .spiderman1, .fault1,
+.badneighbors1, .jumpstreet1, .Foya, .LettreChloé, .LettreMargot,
+.LettreMarraine, .Mot1, .ConanGray, .LettreLéane {
+    position: absolute;
+    transform: rotate(-4deg);
+    filter: blur(3px);
+    &:hover {
+        transform: unset !important;
+        filter: unset;
+    }
+}
+
+.shoes {
+    display: none;
+    position: absolute;
+    top:90px;
+    left:75px;
+    z-index: 1;
+}
+
+.shoeboxmessage {
+    position: absolute;
+    top:315px;
+    left:325px;
+    color:#fff;
+    text-shadow: 1px 1px 0 #000;
+    font-size: 1rem;
+    transform: rotate(-7deg);
+    text-align: center;
+    font-family: 'wobble';
+    z-index: 0;
+    width: 250px;
+    span {
+        text-decoration: underline;
+        text-decoration-color: yellow;
+        text-decoration-style: wavy;
+        color: rgb(255, 255, 216);
+        display: block;
+        cursor: url("/scrapbook/oddbox/img/click.gif"), auto;
+        &:hover {
+            transform: rotate(-3deg);
+        }
+    }
+}
+
+.CarteAnonyme { bottom:90px; left:30px; }
+.MarquePage { top: 80px; left:150px; }
+.CarteCéline2 { top: 240px; left:150px; }
+.CarteChien { top: 190px; left:450px; }
+.CarteCéline { top:240px; left:60px; }
+.Dessins { top: 40px; left:290px; }
+.CarteClochette { top:40px; left:600px; }
+.CarteIsolde { top:50px; left: 550px; }
+.CarteLouise { top:200px; left:200px;}
+.CarteLulu { top:240px; left:300px;}
+.CarteNoël { top:100px; left:400px;}
+.CarteParrain { top:180px; left:480px;}
+.CarteMissElise { top:80px; left:30px;}
+.CartePlanterMargot { top:200px; left:200px;}
+.CartePlanterParrain { top:265px; left:360px;}
+.CartePlume { top:50px; left:50px;}
+.CarteFleur { top:350px; left:350px;}
+.CartePostaleMargot2 { top:200px; left:150px;}
+.CartePostaleParrain { top:150px; left:650px;}
+.CarteUSA { top:50px; left:400px;}
+.CartePostaleMargot { top:100px; left:150px;}
+.ConanGray { top:50px; left:30px;}
+.Foya { top:100px; left:50px;}
+.LettreChloé { top:200px; left:300px;}
+.LettreMargot { top:400px; left:50px;}
+.LettreMarraine { top:150px; left:90px;}
+.Mot1 { top:100px; left:350px;}
+.LettreLéane { top:150px; left:500px; }
+
+.films > img:nth-of-type(odd)  { transform: rotate(-3deg); top:85px; left:300px; }
+.films > img:nth-of-type(even) { transform: rotate(2deg); top:100px; left: 400px; }
+
+  .items {
+    user-select: none;
+    touch-action: none;
+  }
+
+  .items * {
+    &:hover {
+        cursor: url("/scrapbook/oddbox/img/hand.cur"), auto !important;
+    }
+  }
+
+@font-face {
+	font-family: 'wobble';
+	src: url('/fonts/wobble.otf');
+}
+
+.active-display {
+    max-height: 227px;
+        scrollbar-color: #a0b4d4 transparent;
+        &::-webkit-scrollbar-track {
+            background: #a0b4d4;
+                    }
+        &::-webkit-scrollbar-thumb {
+            background-color: transparent;
+                    }
+}
+
+.desc-wrapper {
+    font-family: 'Times New Roman', Times, serif;
+}
+
+h2 {
+    margin: 0;
+    font-family: 'wobble';
+    font-weight: 100;
+}
+
+.list-entry {
+        &:hover {
+        color: yellow;
+        cursor: url("/scrapbook/oddbox/img/click.gif"), auto;
+    }
+&.active {
+    color: yellow;
+    font-weight: bold;
+}
+}
+
+.items.dragging * {
+    cursor: url("/scrapbook/oddbox/img/SimsPlace.cur"), auto !important;
+}
