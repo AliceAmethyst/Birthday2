@@ -420,7 +420,7 @@ resetBtn.addEventListener('click', () => {
       active: "nobackground/conangray.png",
       title: `<h2>Une carte de Conan Gray signée</h2>`,
       description: `<div class="desc-wrapper"><p><strong>Acquise:</strong> en 2025</p>
-          <p>I received a polaroid camera as a gift on my 18th birthday.</p></div>`
+          <p>Une carte signée de Conan Gray, genre LE VRAI CONAN GRAY!!!!!</p></div>`
     },
     CarteLulu: {
       normal: "box/cartelulu.JPG",
